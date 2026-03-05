@@ -5,14 +5,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Arpit Chauhan | Portfolio</title>
   <style>
+    /* CSS Variables for Theme Toggling */
+    :root {
+      --bg-color: #f5f5f5;
+      --text-color: #333;
+      --section-bg: #fff;
+      --header-bg: linear-gradient(90deg, #222, #444);
+      --header-text: #fff;
+      --heading-color: #222;
+      --border-color: #ddd;
+      --shadow-color: rgba(0,0,0,0.1);
+      --link-hover: #ffd700;
+    }
+
+    /* Dark Mode Variables */
+    body.dark-mode {
+      --bg-color: #121212;
+      --text-color: #e0e0e0;
+      --section-bg: #1e1e1e;
+      --header-bg: linear-gradient(90deg, #111, #222);
+      --heading-color: #ffffff;
+      --border-color: #444;
+      --shadow-color: rgba(0,0,0,0.5);
+      --link-hover: #4da6ff;
+    }
+
     /* General */
     body {
       font-family: "Segoe UI", Arial, sans-serif;
       margin: 0;
       line-height: 1.6;
-      background: #f5f5f5;
-      color: #333;
+      background: var(--bg-color);
+      color: var(--text-color);
       scroll-behavior: smooth;
+      transition: background 0.3s ease, color 0.3s ease;
     }
     h1, h2 {
       font-weight: bold;
@@ -20,13 +46,14 @@
 
     /* Header */
     header {
-      background: linear-gradient(90deg, #222, #444);
-      color: #fff;
+      background: var(--header-bg);
+      color: var(--header-text);
       padding: 20px;
       text-align: center;
       position: sticky;
       top: 0;
       z-index: 1000;
+      box-shadow: 0 2px 10px var(--shadow-color);
     }
     header h1 {
       margin: 0;
@@ -36,19 +63,43 @@
     header p {
       margin: 5px 0;
     }
+    
+    /* Theme Toggle Button */
+    #theme-toggle {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      padding: 8px 12px;
+      cursor: pointer;
+      border-radius: 5px;
+      border: none;
+      background: #ffd700;
+      color: #222;
+      font-weight: bold;
+      transition: transform 0.2s;
+    }
+    #theme-toggle:hover {
+      transform: scale(1.05);
+    }
+    body.dark-mode #theme-toggle {
+      background: #4da6ff;
+      color: #121212;
+    }
+
     nav {
       margin-top: 10px;
     }
     nav a {
-      color: #fff;
+      color: var(--header-text);
       margin: 0 10px;
       text-decoration: none;
       font-weight: bold;
       transition: color 0.3s, transform 0.3s;
     }
     nav a:hover {
-      color: #ffd700;
+      color: var(--link-hover);
       transform: scale(1.1);
+      display: inline-block;
     }
 
     /* Sections */
@@ -56,27 +107,36 @@
       max-width: 900px;
       margin: 30px auto;
       padding: 25px;
-      background: #fff;
+      background: var(--section-bg);
       border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 10px var(--shadow-color);
       opacity: 0;
       transform: translateY(30px);
       animation: fadeUp 0.8s ease forwards;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
     }
+    section:nth-of-type(1) { animation-delay: 0.1s; }
     section:nth-of-type(2) { animation-delay: 0.2s; }
-    section:nth-of-type(3) { animation-delay: 0.4s; }
-    section:nth-of-type(4) { animation-delay: 0.6s; }
-    section:nth-of-type(5) { animation-delay: 0.8s; }
-    section:nth-of-type(6) { animation-delay: 1s; }
+    section:nth-of-type(3) { animation-delay: 0.3s; }
+    section:nth-of-type(4) { animation-delay: 0.4s; }
+    section:nth-of-type(5) { animation-delay: 0.5s; }
+    section:nth-of-type(6) { animation-delay: 0.6s; }
 
     h2 {
-      color: #222;
-      border-bottom: 2px solid #ddd;
+      color: var(--heading-color);
+      border-bottom: 2px solid var(--border-color);
       padding-bottom: 5px;
+      transition: color 0.3s ease, border-color 0.3s ease;
     }
     ul {
       list-style-type: square;
       margin-left: 20px;
+    }
+    a {
+      color: #0077b5;
+    }
+    body.dark-mode a {
+      color: #4da6ff;
     }
 
     /* Contact & Social Links */
@@ -87,12 +147,13 @@
     .social a {
       margin: 0 10px;
       padding: 6px 12px;
-      color: #fff;
+      color: #fff !important;
       background: #0077b5;
       border-radius: 5px;
       text-decoration: none;
       font-weight: bold;
       transition: background 0.3s, transform 0.3s;
+      display: inline-block;
     }
     .social a:hover {
       background: #005582;
@@ -109,8 +170,8 @@
     footer {
       text-align: center;
       padding: 15px;
-      background: #222;
-      color: #fff;
+      background: var(--header-bg);
+      color: var(--header-text);
       margin-top: 30px;
     }
 
@@ -127,6 +188,7 @@
 <body>
 
   <header>
+    <button id="theme-toggle">🌙 Dark Mode</button>
     <h1>Arpit Chauhan</h1>
     <p>📞 9457337284 | ✉️ mr.arpitchauhan1@gmail.com</p>
     <nav>
@@ -163,7 +225,7 @@
     <p><b>Personal Portfolio Website</b> | HTML, CSS, JavaScript | <a href="https://github.com/arpitchauhan19" target="_blank">GitHub Link</a></p>
     <ul>
       <li>Designed and developed a fully responsive portfolio.</li>
-      <li>Used Flexbox and CSS animations for a smooth experience.</li>
+      <li>Implemented a dynamic Dark/Light theme toggle using CSS Variables and LocalStorage.</li>
     </ul>
 
     <p><b>Speed Detector System</b> | Arduino, Sensors, C++</p>
@@ -212,8 +274,32 @@
   </section>
 
   <footer>
-    <p>© 2025 Arpit Chauhan | Portfolio Website</p>
+    <p>© 2026 Arpit Chauhan | Portfolio Website</p>
   </footer>
+
+  <script>
+    const toggleBtn = document.getElementById('theme-toggle');
+    const body = document.body;
+
+    // Check if the user previously chose dark mode
+    if(localStorage.getItem('theme') === 'dark') {
+      body.classList.add('dark-mode');
+      toggleBtn.textContent = '☀️ Light Mode';
+    }
+
+    // Toggle theme on click
+    toggleBtn.addEventListener('click', () => {
+      body.classList.toggle('dark-mode');
+      
+      if (body.classList.contains('dark-mode')) {
+        localStorage.setItem('theme', 'dark');
+        toggleBtn.textContent = '☀️ Light Mode';
+      } else {
+        localStorage.setItem('theme', 'light');
+        toggleBtn.textContent = '🌙 Dark Mode';
+      }
+    });
+  </script>
 
 </body>
 </html>
